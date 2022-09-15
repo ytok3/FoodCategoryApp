@@ -38,13 +38,13 @@ class ServiceManager: ServiceManagerProtocol {
             "Accept-Language": "en-US,en;q=0.5"
         ]
         
-        afSession.request(url, method: .get, headers: headers).validate().responseDecodable(of: T.self) { categori in
+        afSession.request(url, method: .get, headers: headers).validate().responseDecodable(of: T.self) { category in
             
-            if categori.response?.statusCode == 400 {
+            if category.response?.statusCode == 400 {
                 return completion(.failure(HttpError.badRequest))
             }
             
-            guard let model = categori.value else {
+            guard let model = category.value else {
                 return completion(.failure(HttpError.errorDecodingData))
             }
             

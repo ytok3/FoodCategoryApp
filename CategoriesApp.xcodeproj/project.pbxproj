@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		09CAC396A7FB328EA7C400B7 /* Pods_CategoriesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23B33E5B9B18BDA402873813 /* Pods_CategoriesApp.framework */; };
+		47480D9828D379FB00914738 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47480D9728D379FB00914738 /* String+Extension.swift */; };
 		47B38DC028CB66A400C0F01E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B38DBF28CB66A400C0F01E /* AppDelegate.swift */; };
 		47B38DC228CB66A400C0F01E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B38DC128CB66A400C0F01E /* SceneDelegate.swift */; };
 		47B38DC428CB66A400C0F01E /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B38DC328CB66A400C0F01E /* CategoriesViewController.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		23B33E5B9B18BDA402873813 /* Pods_CategoriesApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CategoriesApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47480D9728D379FB00914738 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		47B38DBC28CB66A400C0F01E /* CategoriesApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CategoriesApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47B38DBF28CB66A400C0F01E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47B38DC128CB66A400C0F01E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		47480D9628D379E200914738 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				47480D9728D379FB00914738 /* String+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		47B38DB328CB66A400C0F01E = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		47B38DBE28CB66A400C0F01E /* CategoriesApp */ = {
 			isa = PBXGroup;
 			children = (
+				47480D9628D379E200914738 /* Extension */,
 				47B38DDD28CB6F2700C0F01E /* Model */,
 				47B38DDA28CB6E9A00C0F01E /* Network */,
 				47B38DD528CB687C00C0F01E /* Constant */,
@@ -375,6 +386,7 @@
 				47B38DC028CB66A400C0F01E /* AppDelegate.swift in Sources */,
 				47B38DC228CB66A400C0F01E /* SceneDelegate.swift in Sources */,
 				47BB679F28CD004D00908B4B /* ProductsViewController.swift in Sources */,
+				47480D9828D379FB00914738 /* String+Extension.swift in Sources */,
 				47B38DED28CB76D100C0F01E /* CategoriesCollectionViewProperties.swift in Sources */,
 				47B38DEA28CB74ED00C0F01E /* Identifier.swift in Sources */,
 				47BB67A828CD1AF900908B4B /* ProductsCollectionViewCell.swift in Sources */,

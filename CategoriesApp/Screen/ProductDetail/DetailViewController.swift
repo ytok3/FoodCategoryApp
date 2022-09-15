@@ -169,8 +169,7 @@ class DetailViewController: UIViewController {
             self.campaignPrice.text = Constants.Properties.Campaing_Price + "\(product.campaignPrice ?? 0)"
         }
         
-        self.productDescription.text = product.dataDescription
-    
+        self.productDescription.attributedText = product.dataDescription?.htmlToAttributedString
     }
     
     
@@ -183,7 +182,7 @@ class DetailViewController: UIViewController {
             productImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
             productImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             productImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            productImage.heightAnchor.constraint(equalToConstant: view.frame.height / 2 ),
+            productImage.heightAnchor.constraint(equalToConstant: view.frame.height * 0),
             productImage.widthAnchor.constraint(equalToConstant: view.frame.width),
             
             verticalStack.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: padding),
@@ -200,7 +199,9 @@ class DetailViewController: UIViewController {
             campaignPrice.heightAnchor.constraint(equalToConstant: view.frame.height / 20),
             
             productDescription.topAnchor.constraint(equalTo: price.bottomAnchor, constant: padding),
-            productDescription.heightAnchor.constraint(equalToConstant: view.frame.height / 20),
+            productDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            productDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            productDescription.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -8),
             
             addButton.topAnchor.constraint(equalTo: verticalStack.bottomAnchor, constant: padding * 5),
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),

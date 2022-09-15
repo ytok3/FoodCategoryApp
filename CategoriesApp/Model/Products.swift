@@ -27,11 +27,12 @@ struct Products: Codable {
     let datumDescription: String?
     let stock: Int?
     let stockCode: String?
-    let price: Int?
+    let price: Double?
     let currency: String?
     let maxQuantityPerOrder: Int?
     let itemType: String?
-    let campaignPrice, shippingPrice, orderIndex: Int?
+    let campaignPrice: Double?
+    let shippingPrice, orderIndex: Int?
     let isPublished, isActive: Bool?
     let publishmentDate, endDate, createDate, updateDate: String?
     let useFixPrice: Bool?
