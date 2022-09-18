@@ -33,9 +33,9 @@ class ServiceManager: ServiceManagerProtocol {
     func fetch<T>(url: URL, completion: @escaping resultClosure<T>) where T : Decodable, T : Encodable {
         
         let headers: HTTPHeaders = [
-            "Api-Key": "xXspnfUxPzOGKNu90bFAjlOTnMLpN8veiixvEFXUw9I=",
-            "Alias-Key": "AtS1aPFxlIdVLth6ee2SEETlRxk=",
-            "Accept-Language": "en-US,en;q=0.5"
+            Constants.API_KEY: Constants.API_KEY_URL,
+            Constants.ALIAS_KEY: Constants.ALIAS_KEY_URL,
+            Constants.LANGUAGE: Constants.LANGUAGE_URL
         ]
         
         afSession.request(url, method: .get, headers: headers).validate().responseDecodable(of: T.self) { category in

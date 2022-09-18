@@ -9,5 +9,6 @@ target 'CategoriesApp' do
   pod 'Alamofire', '~> 5.5'
   pod 'AlamofireImage', '~> 4.1'
   pod 'DropDown'
+  pod 'SnapKit', '~> 5.0.0'
 
 end

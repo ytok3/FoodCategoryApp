@@ -7,6 +7,7 @@
 
 import UIKit
 import AlamofireImage
+import SnapKit
 
 class ProductsCollectionViewCell: UICollectionViewCell {
     
@@ -27,7 +28,7 @@ class ProductsCollectionViewCell: UICollectionViewCell {
         button.clipsToBounds = true
         button.setTitle("0", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = .systemGray
         button.layer.cornerRadius = 15
         return button
     }()
@@ -139,40 +140,40 @@ class ProductsCollectionViewCell: UICollectionViewCell {
     
     func configureConstraint() {
         
-        let padding: CGFloat = 4
-        let diameter: CGFloat = 30
+        productImage.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(3)
+            make.left.equalTo(contentView).offset(3)
+            make.right.equalTo(contentView).offset(-3)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.equalTo(140)
+        }
         
-        NSLayoutConstraint.activate([
-            
-            productImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            productImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            productImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            productImage.heightAnchor.constraint(equalToConstant: contentView.frame.height / 1.5 ),
-            productImage.widthAnchor.constraint(equalToConstant: contentView.frame.width / 2),
-            
-            addBadge.heightAnchor.constraint(equalToConstant: diameter),
-            addBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: diameter),
-            addBadge.leadingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 10),
-            addBadge.bottomAnchor.constraint(equalTo: contentView.topAnchor , constant: padding  * 10),
-            
-            verticalStack.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: padding),
-            verticalStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            verticalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            verticalStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
-            verticalStack.widthAnchor.constraint(equalToConstant: contentView.frame.width - padding * 2),
+        addBadge.snp.makeConstraints { make in
+            make.right.equalTo(contentView.snp.left).offset(-40)
+            make.bottom.equalTo(contentView.snp.top).offset(40)
+            make.height.equalTo(30)
+            make.width.equalTo(30)
+        }
         
-            titleName.topAnchor.constraint(equalTo: verticalStack.topAnchor, constant: padding),
-            titleName.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
-            titleName.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
-            
-            price.topAnchor.constraint(equalTo: titleName.bottomAnchor, constant: padding),
-            price.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
-            price.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
-            
-            campaignPrice.topAnchor.constraint(equalTo: price.bottomAnchor, constant: padding),
-            campaignPrice.leadingAnchor.constraint(equalTo: verticalStack.leadingAnchor, constant: padding),
-            campaignPrice.trailingAnchor.constraint(equalTo: verticalStack.trailingAnchor, constant: -padding),
-            campaignPrice.bottomAnchor.constraint(equalTo: verticalStack.bottomAnchor, constant: -padding)
-        ])
+        verticalStack.snp.makeConstraints { make in
+            make.top.equalTo(productImage.snp.bottom).offset(3)
+            make.left.equalTo(contentView).offset(3)
+            make.right.equalTo(contentView).offset(-3)
+            make.bottom.equalTo(contentView).offset(-3)
+            make.centerX.equalTo(contentView.snp.centerX)
+        }
+        
+        titleName.snp.makeConstraints { make in
+            make.top.equalTo(verticalStack.snp.top).offset(3)
+        }
+        
+        price.snp.makeConstraints { make in
+            make.top.equalTo(titleName.snp.bottom).offset(3)
+        }
+        
+        campaignPrice.snp.makeConstraints { make in
+            make.top.equalTo(price.snp.bottom).offset(3)
+            make.bottom.equalTo(verticalStack.snp.bottom).offset(-3)
+        }
     }
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 protocol ProductsOutput: AnyObject {
-    
     func didSelectProduct(productId: String?)
 }
 
@@ -23,7 +22,6 @@ class ProductsCollectionViewProperties: NSObject {
     func update(products: [Products]) {
         self.products = products
     }
-
 }
 
 // MARK: Extensions

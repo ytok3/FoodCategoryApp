@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class DetailViewController: UIViewController {
     
@@ -17,6 +18,26 @@ class DetailViewController: UIViewController {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
         return indicator
+    }()
+    
+    private let noResult: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.clipsToBounds = true
+        label.textColor = .black
+        label.backgroundColor = .white
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
+    private var scroolView: UIScrollView = {
+        let scroolView = UIScrollView()
+        scroolView.translatesAutoresizingMaskIntoConstraints = false
+        scroolView.isScrollEnabled = true
+        return scroolView
     }()
     
     private let productImage: UIImageView = {
@@ -43,7 +64,7 @@ class DetailViewController: UIViewController {
         label.clipsToBounds = true
         label.textColor = .black
         label.backgroundColor = .white
-        label.font = UIFont.systemFont(ofSize: 25)
+        label.font = UIFont.systemFont(ofSize: 30)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -56,7 +77,7 @@ class DetailViewController: UIViewController {
         label.clipsToBounds = true
         label.textColor = .black
         label.backgroundColor = .white
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 20)
         label.numberOfLines = 0
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -93,16 +114,16 @@ class DetailViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.setTitle("ADD TO BASKET", for: .normal)
+        button.setTitle(Constants.Properties.Add_To_Basket, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemRed
-        button.layer.cornerRadius = 4
+        button.layer.cornerRadius = 10
         return button
     }()
     
     // MARK: Properties
     
-    private var  viewModel: DetailViewModel?
+    private var viewModel: DetailViewModel?
     
     // MARK: Init
     
@@ -123,6 +144,7 @@ class DetailViewController: UIViewController {
         
         indicator.startAnimating()
         activeIndicator()
+        noResult.isHidden = true
   
         viewModel?.output = self
         
@@ -148,8 +170,10 @@ class DetailViewController: UIViewController {
         
         view.backgroundColor = .white
         view.addSubview(indicator)
-        view.addSubview(productImage)
-        view.addSubview(verticalStack)
+        view.addSubview(noResult)
+        view.addSubview(scroolView)
+        scroolView.addSubview(productImage)
+        scroolView.addSubview(verticalStack)
         verticalStack.addArrangedSubview(titleName)
         verticalStack.addArrangedSubview(price)
         verticalStack.addArrangedSubview(campaignPrice)
@@ -172,57 +196,87 @@ class DetailViewController: UIViewController {
         self.productDescription.attributedText = product.dataDescription?.htmlToAttributedString
     }
     
-    
-    private func setUpConstraint() {
+    func setUpConstraint() {
         
-        let padding: CGFloat = 4
+        indicator.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(50)
+            make.width.equalTo(50)
+        }
         
-        NSLayoutConstraint.activate([
-            
-            productImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
-            productImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            productImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            productImage.heightAnchor.constraint(equalToConstant: view.frame.height * 0),
-            productImage.widthAnchor.constraint(equalToConstant: view.frame.width),
-            
-            verticalStack.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: padding),
-            verticalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            verticalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            
-            titleName.topAnchor.constraint(equalTo: verticalStack.topAnchor, constant: padding),
-            titleName.heightAnchor.constraint(equalToConstant: view.frame.height / 20),
-            
-            price.topAnchor.constraint(equalTo: titleName.bottomAnchor, constant: padding),
-            price.heightAnchor.constraint(equalToConstant: view.frame.height / 20),
-            
-            campaignPrice.topAnchor.constraint(equalTo: price.bottomAnchor, constant: padding),
-            campaignPrice.heightAnchor.constraint(equalToConstant: view.frame.height / 20),
-            
-            productDescription.topAnchor.constraint(equalTo: price.bottomAnchor, constant: padding),
-            productDescription.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            productDescription.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            productDescription.bottomAnchor.constraint(equalTo: addButton.topAnchor, constant: -8),
-            
-            addButton.topAnchor.constraint(equalTo: verticalStack.bottomAnchor, constant: padding * 5),
-            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            addButton.heightAnchor.constraint(equalToConstant: view.frame.height / 15),
-            addButton.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
-            addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding * 10),
-            
-            indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            indicator.heightAnchor.constraint(equalToConstant: 50),
-            indicator.widthAnchor.constraint(equalToConstant: 50)
-        ])
+        noResult.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(50)
+            make.width.equalTo(200)
+        }
+        
+        scroolView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(5)
+            make.left.equalTo(view).offset(5)
+            make.right.equalTo(view).offset(-5)
+            make.bottom.equalTo(addButton.snp.top).offset(-5)
+        }
+        
+        productImage.snp.makeConstraints { make in
+            make.top.equalTo(scroolView.snp.top)
+            make.left.equalTo(scroolView).offset(10)
+            make.right.equalTo(scroolView).offset(-10)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(300)
+        }
+        
+        verticalStack.snp.makeConstraints { make in
+            make.top.equalTo(productImage.snp.bottom).offset(10)
+            make.left.equalTo(scroolView).offset(10)
+            make.right.equalTo(scroolView).offset(-10)
+            make.bottom.equalTo(scroolView).offset(-10)
+            make.centerX.equalTo(view.snp.centerX)
+        }
+        
+        titleName.snp.makeConstraints { make in
+            make.top.equalTo(verticalStack.snp.top).offset(5)
+        }
+        
+        price.snp.makeConstraints { make in
+            make.top.equalTo(titleName.snp.bottom).offset(10)
+        }
+        
+        campaignPrice.snp.makeConstraints { make in
+            make.top.equalTo(price.snp.bottom).offset(10)
+        }
+        
+        productDescription.snp.makeConstraints { make in
+            make.top.equalTo(campaignPrice.snp.bottom).offset(20)
+            make.bottom.equalTo(verticalStack.snp.bottom).offset(-10)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.top.equalTo(scroolView.snp.bottom).offset(20)
+            make.left.equalTo(view).offset(100)
+            make.right.equalTo(view).offset(-100)
+            make.bottom.equalTo(view.snp.bottom).offset(-50)
+            make.centerX.equalTo(view.snp.centerX)
+            make.height.equalTo(50)
+        }
     }
 }
 
 // MARK: Extension
 
 extension DetailViewController: DetailViewModelOutput {
+    
     func selectProduct(product: Detail?) {
         configureProduct(product: product!)
         indicator.stopAnimating()
         passiveIndicator()
+    }
+    
+    func noResults() {
+        indicator.stopAnimating()
+        noResult.isHidden = false
+        activeIndicator()
+        noResult.text = Constants.Properties.No_Result
     }
 }

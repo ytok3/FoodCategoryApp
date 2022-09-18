@@ -24,23 +24,23 @@ class CategoriesViewModel: CategoriesViewModelProtocol {
     private var service: ServiceManagerProtocol?
     var output: CategoriesViewModelOutput?
     
-    
     // MARK: Init
+    
     init(service: ServiceManagerProtocol) {
         self.service = service
         
         fetchCategories()
     }
     
-    // MARK: Funcs
+    // MARK: Func
     
     func fetchCategories() {
         service?.fetch(url: Constants.generateURL()!, completion: { (response: Result<CategoriesList, Error>) in
             switch response {
             case .success(let categoryList):
                 self.output?.updateData(categories: categoryList.data ?? [])
-            case .failure:
-                print("error")
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         })
     }

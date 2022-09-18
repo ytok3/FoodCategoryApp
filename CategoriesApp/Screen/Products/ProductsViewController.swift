@@ -7,6 +7,7 @@
 
 import UIKit
 import DropDown
+import SnapKit
 
 class ProductsViewController: UIViewController {
     
@@ -18,19 +19,6 @@ class ProductsViewController: UIViewController {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.hidesWhenStopped = true
         return indicator
-    }()
-    
-    private let noResult: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.clipsToBounds = true
-        label.textColor = .black
-        label.backgroundColor = .white
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        return label
     }()
     
     private let collectionView: UICollectionView = {
@@ -45,9 +33,9 @@ class ProductsViewController: UIViewController {
     
     private let menu: DropDown = {
         let menu = DropDown()
-        menu.dataSource = ["Price",
-                           "Title",
-                           "PublishmentDate"]
+        menu.dataSource = [Constants.Properties.Filter_Price,
+                           Constants.Properties.Filter_Title,
+                           Constants.Properties.Filter_Publishment_Date]
         return menu
     }()
     
@@ -77,9 +65,8 @@ class ProductsViewController: UIViewController {
         
         indicator.startAnimating()
         collectionView.isHidden = true
-        noResult.isHidden = true
         
-        let filter = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(addTapped))
+        let filter = UIBarButtonItem(title: Constants.Properties.Filter, style: .plain, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = filter
         
         menu.anchorView = filter
@@ -88,7 +75,10 @@ class ProductsViewController: UIViewController {
         setUpView()
     }
     
+    // MARK: Func
+    
     func setUpDelegate() {
+        
         collectionView.delegate = productsCollectionViewProperties
         collectionView.dataSource = productsCollectionViewProperties
         
@@ -99,33 +89,27 @@ class ProductsViewController: UIViewController {
     func setUpView() {
         view.backgroundColor = .white
         view.addSubview(indicator)
-        view.addSubview(noResult)
         view.addSubview(collectionView)
         
         setUpConstraint()
     }
     
-    private func setUpConstraint() {
+    func setUpConstraint() {
         
-        let padding: CGFloat = 4
+        indicator.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(50)
+            make.width.equalTo(50)
+        }
         
-        NSLayoutConstraint.activate([
-            
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
-            
-            indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            indicator.heightAnchor.constraint(equalToConstant: 50),
-            indicator.widthAnchor.constraint(equalToConstant: 50),
-            
-            noResult.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            noResult.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            noResult.heightAnchor.constraint(equalToConstant: 50),
-            noResult.widthAnchor.constraint(equalToConstant: 200)
-        ])
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalTo(view).offset(5)
+            make.right.equalTo(view).offset(-5)
+            make.bottom.equalTo(view.snp.bottom).offset(-5)
+            make.centerX.equalTo(view.snp.centerX)
+        }
     }
     
     @objc func addTapped() {
@@ -150,19 +134,12 @@ extension ProductsViewController: ProductsOutput {
 }
 
 extension ProductsViewController: ProductsViewModelOutput {
-   
+
     func selectCategory(products: [Products]) {
         productsCollectionViewProperties?.update(products: products)
         collectionView.reloadData()
         indicator.stopAnimating()
         collectionView.isHidden = false
-    }
-    
-    func noResults() {
-        indicator.stopAnimating()
-        noResult.isHidden = false
-        collectionView.isHidden = true
-        noResult.text = "Data Not Found"
     }
 }
 

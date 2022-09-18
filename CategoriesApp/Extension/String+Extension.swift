@@ -14,7 +14,7 @@ extension String {
             let string = try NSMutableAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding:String.Encoding.utf8.rawValue], documentAttributes: nil)
             
                var attrs = string.attributes(at: 0, effectiveRange: nil)
-               attrs[NSAttributedString.Key.font] = UIFont.boldSystemFont(ofSize: 14)
+            attrs[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 18)
                 string.setAttributes(attrs, range: NSRange(location: 0, length: string.length))
 
             return string

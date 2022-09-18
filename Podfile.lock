@@ -3,23 +3,27 @@ PODS:
   - AlamofireImage (4.2.0):
     - Alamofire (~> 5.4)
   - DropDown (2.3.13)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
   - AlamofireImage (~> 4.1)
   - DropDown
+  - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - AlamofireImage
     - DropDown
+    - SnapKit
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 528e3cfd764ad3d5ecbe8f8e1bba09519ff7f550
+PODFILE CHECKSUM: cad776e5cb21dac077b24a6174577791337ad903
 
 COCOAPODS: 1.11.3

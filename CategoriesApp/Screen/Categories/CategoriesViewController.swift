@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CategoriesViewController: UIViewController {
     
@@ -54,6 +55,8 @@ final class CategoriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Categories"
+        
         indicator.startAnimating()
         collectionView.isHidden = true
         
@@ -83,22 +86,22 @@ final class CategoriesViewController: UIViewController {
         setUpConstraint()
     }
     
-    private func setUpConstraint() {
+    func setUpConstraint() {
         
-        let padding: CGFloat = 4
+        indicator.snp.makeConstraints { make in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY)
+            make.height.equalTo(50)
+            make.width.equalTo(50)
+        }
         
-        NSLayoutConstraint.activate([
-            
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding),
-            
-            indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            indicator.heightAnchor.constraint(equalToConstant: 50),
-            indicator.widthAnchor.constraint(equalToConstant: 50)
-        ])
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.left.equalTo(view).offset(5)
+            make.right.equalTo(view).offset(-5)
+            make.bottom.equalTo(view.snp.bottom).offset(-5)
+            make.centerX.equalTo(view.snp.centerX)
+        }
     }
 }
 

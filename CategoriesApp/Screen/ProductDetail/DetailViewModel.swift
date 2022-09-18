@@ -8,8 +8,8 @@
 import Foundation
 
 protocol DetailViewModelOutput {
-    
     func selectProduct(product: Detail?)
+    func noResults()
 }
 
 protocol DetailViewModelProtocol {
@@ -43,7 +43,7 @@ class DetailViewModel: DetailViewModelProtocol {
             case .success(let productDetail):
                 self.output?.selectProduct(product: productDetail.data)
             case .failure:
-                print("error")
+                self.output?.noResults()
             }
         })
     }

@@ -9,8 +9,6 @@ import Foundation
 
 protocol ProductsViewModelOutput {
     func selectCategory(products: [Products])
-    func noResults()
-    
 }
 
 protocol ProductsViewModelProtocol {
@@ -51,8 +49,8 @@ class ProductsViewModel: ProductsViewModelProtocol {
             switch response {
             case .success(let productList):
                 self.output?.selectCategory(products: productList.data ?? [])
-            case .failure:
-                self.output?.noResults()
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         })
     }

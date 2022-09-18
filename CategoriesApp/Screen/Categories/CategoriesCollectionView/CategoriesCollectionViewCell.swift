@@ -84,23 +84,23 @@ class CategoriesCollectionViewCell: UICollectionViewCell {
     
     func configureConstraint() {
         
-        let padding: CGFloat = 4
+        horizontalStack.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(3)
+            make.left.equalTo(contentView).offset(5)
+            make.right.equalTo(contentView).offset(-5)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-3)
+        }
         
-        NSLayoutConstraint.activate([
-            
-            horizontalStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
-            horizontalStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            horizontalStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            horizontalStack.widthAnchor.constraint(equalToConstant: contentView.frame.width - padding / 2),
-            
-            categoryIcon.topAnchor.constraint(equalTo: horizontalStack.topAnchor, constant: padding),
-            categoryIcon.heightAnchor.constraint(equalToConstant: contentView.frame.height / 20),
-            categoryIcon.widthAnchor.constraint(equalToConstant: contentView.frame.width / 5),
-            categoryIcon.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding),
+        categoryIcon.snp.makeConstraints { make in
+            make.top.equalTo(horizontalStack.snp.top).offset(3)
+            make.bottom.equalTo(horizontalStack.snp.bottom).offset(-3)
+            make.width.equalTo(70)
+        }
         
-            categoryName.topAnchor.constraint(equalTo: horizontalStack.topAnchor, constant: padding),
-            categoryName.leftAnchor.constraint(equalTo: categoryIcon.rightAnchor, constant: padding * 5),
-            categoryName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
-        ])
+        categoryName.snp.makeConstraints { make in
+            make.top.equalTo(horizontalStack.snp.top).offset(3)
+            make.left.equalTo(categoryIcon.snp.right).offset(20)
+            make.bottom.equalTo(horizontalStack.snp.bottom).offset(-3)
+        }
     }
 }
